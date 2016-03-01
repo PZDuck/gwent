@@ -41,7 +41,6 @@ function GwentBoard(player1, player2) {
     this.playCard = function(player_id, hand_id) {
         var gwent_card = this.Players[player_id].takeCardFromHand(hand_id);
         if(gwent_card.type == 'Weather') {
-            //angular.forEach(this.Players, function(player) { player.applyWeather(gwent_card); });
             if(gwent_card.row == 'Clear') {
                 this.Weather = [];
             } else {
@@ -50,8 +49,9 @@ function GwentBoard(player1, player2) {
         } else {
             this.Players[player_id].playCard(gwent_card);
         }
-        this.Players[player_id].updateScore(this.Weather);
-    }
+        var self = this;
+        angular.forEach(this.Players, function(player) { player.updateScore(self.Weather); });
+    };
 }
 
 function GwentPlayer(deck) {
