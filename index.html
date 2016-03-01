@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gwent</title>
+        <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script type="application/javascript" src="gwent.js"></script>
+        <link type="text/css" href="gwent.css" />
+    </head>
+    <body>
+        <div ng-app='myApp' ng-controller="MyCtrl">
+            <div>
+                Player1: {{GwentGame.GwentBoard.Players[0].Score.Total()}}<br />
+                C: {{GwentGame.GwentBoard.Players[0].Score.CloseCombat}}<br />
+                R: {{GwentGame.GwentBoard.Players[0].Score.RangedCombat}}<br />
+                S: {{GwentGame.GwentBoard.Players[0].Score.SiegeCombat}}<br />
+            </div>
+            <div ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Hand'>
+                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}} <button ng-click="GwentGame.GwentBoard.playCard(0, id)">Play Card</button>
+            </div>
+            <hr />
+            <h3>Close</h3>
+            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.CloseCombat'>
+                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
+            </div>
+            <h3>Ranged</h3>
+            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.RangedCombat'>
+                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
+            </div>
+            <h3>Siege</h3>
+            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.SiegeCombat'>
+                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
+            </div>
+            <button ng-click='applyWeather("CloseCombat");'>Apply Frost</button>
+            <button ng-click='applyWeather("RangedCombat");'>Apply Fog</button>
+            <button ng-click='applyWeather("SiegeCombat");'>Apply Rain</button>
+            <button ng-click='applyWeather("Clear");'>Apply Clear</button>
+        </div>
+
+    </body>
+</html>
