@@ -11,6 +11,16 @@ function GwentCard(type, name, row, base_power, hero) {
     this.base_power = base_power;
     this.display_power = base_power;
     this.hero = hero;
+    this.display_row = function() {
+        switch(this.row) {
+            case 'CloseCombat':
+                return 'C';
+            case 'RangedCombat':
+                return 'R';
+            case 'SiegeCombat':
+                return 'S';
+        }
+    }
 }
 
 function GwentGame(player1, player2) {
@@ -48,7 +58,7 @@ function GwentPlayer(deck) {
     this.Deck = deck;
     this.Hand = [];
     this.Discard = [];
-    this.Board = {CloseCombat: [], RangedCombat: [], SiegeCombat: []};
+    this.Board = {CloseCombat: {CommandHorn: false, Cards: []}, RangedCombat: {CommandHorn: false, Cards: []}, SiegeCombat: {CommandHorn: false, Cards: []}};
     this.Score = {CloseCombat: 0, RangedCombat: 0, SiegeCombat: 0,
         Total: function() {
             return this.CloseCombat + this.RangedCombat + this.SiegeCombat;
@@ -67,16 +77,16 @@ function GwentPlayer(deck) {
         return gwent_card;
     };
     this.playCard = function(gwent_card) {
-        this.Board[gwent_card.row].push(gwent_card);
+        this.Board[gwent_card.row].Cards.push(gwent_card);
     };
     this.updateScore = function(active_weather_cards) {
         var self = this;
         this.Score.CloseCombat = 0;
-        angular.forEach(this.Board.CloseCombat, function(card) { self.Score.CloseCombat += calculateCardPower(card, active_weather_cards); });
+        angular.forEach(this.Board.CloseCombat.Cards, function(card) { self.Score.CloseCombat += calculateCardPower(card, active_weather_cards); });
         this.Score.RangedCombat = 0;
-        angular.forEach(this.Board.RangedCombat, function(card) { self.Score.RangedCombat += calculateCardPower(card, active_weather_cards); });
+        angular.forEach(this.Board.RangedCombat.Cards, function(card) { self.Score.RangedCombat += calculateCardPower(card, active_weather_cards); });
         this.Score.SiegeCombat = 0;
-        angular.forEach(this.Board.SiegeCombat, function(card) { self.Score.SiegeCombat += calculateCardPower(card, active_weather_cards); });
+        angular.forEach(this.Board.SiegeCombat.Cards, function(card) { self.Score.SiegeCombat += calculateCardPower(card, active_weather_cards); });
     };
     function calculateCardPower(gwent_card, active_weather_cards) {
         var power = gwent_card.base_power;
