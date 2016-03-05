@@ -12,44 +12,28 @@
             <div class="Player Player1">
                 <h3>Player 1: {{GwentGame.GwentBoard.Players[0].Score.Total()}}</h3>
                 <div class="TheHand">
-                    <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Hand' ng-click="GwentGame.GwentBoard.playCard(0, id)">
-                        <div class="CardName">{{card.name}}</div>
-                        <div class="CardRow">{{card.display_row()}}</div>
-                        <div class="CardPower">{{card.display_power}}</div>
-                    </div>
+                    <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Hand' ng-init="player=0" ng-include="'gwent_card_hand.html'"></div>
                 </div>
                 <hr />
                 <div class="TheBoard">
-                    <div class="Row SiegeRow">
+                    <div class="Row SiegeRow" ng-class="{activeWeather: isWeatherActive('SiegeCombat')}">
                         <div class="Horn">S: {{GwentGame.GwentBoard.Players[0].Score.SiegeCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.SiegeCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.SiegeCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
-                    <div class="Row RangedRow">
+                    <div class="Row RangedRow" ng-class="{activeWeather: isWeatherActive('RangedCombat')}">
                         <div class="Horn">R: {{GwentGame.GwentBoard.Players[0].Score.RangedCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.RangedCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.RangedCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
-                    <div class="Row CloseRow">
+                    <div class="Row CloseRow" ng-class="{activeWeather: isWeatherActive('CloseCombat')}">
                         <div class="Horn">C: {{GwentGame.GwentBoard.Players[0].Score.CloseCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.CloseCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Board.CloseCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                 </div>
@@ -60,44 +44,28 @@
                     <div class="Row CloseRow">
                         <div class="Horn">C: {{GwentGame.GwentBoard.Players[1].Score.CloseCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.CloseCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.CloseCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
                     <div class="Row RangedRow">
                         <div class="Horn">R: {{GwentGame.GwentBoard.Players[1].Score.RangedCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.RangedCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.RangedCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
                     <div class="Row SiegeRow">
                         <div class="Horn">S: {{GwentGame.GwentBoard.Players[1].Score.SiegeCombat}}</div>
                         <div class="Cards">
-                            <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.SiegeCombat.Cards'>
-                                <div class="CardName">{{card.name}}</div>
-                                <div class="CardRow">{{card.display_row()}}</div>
-                                <div class="CardPower">{{card.display_power}}</div>
-                            </div>
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.SiegeCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                 </div>
                 <hr />
                 <h3>Player 2: {{GwentGame.GwentBoard.Players[1].Score.Total()}}</h3>
                 <div class="TheHand">
-                    <div class="GwentCard" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Hand' ng-click="GwentGame.GwentBoard.playCard(1, id)">
-                        <div class="CardName">{{card.name}}</div>
-                        <div class="CardRow">{{card.display_row()}}</div>
-                        <div class="CardPower">{{card.display_power}}</div>
-                    </div>
+                    <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Hand' ng-init="player=1" ng-include="'gwent_card_hand.html'"></div>
                 </div>
             </div>
             <hr>
@@ -106,22 +74,6 @@
                 C: {{GwentGame.GwentBoard.Players[0].Score.CloseCombat}}<br />
                 R: {{GwentGame.GwentBoard.Players[0].Score.RangedCombat}}<br />
                 S: {{GwentGame.GwentBoard.Players[0].Score.SiegeCombat}}<br />
-            </div>
-            <div ng-repeat='(id, card) in GwentGame.GwentBoard.Players[0].Hand'>
-                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}} <button ng-click="GwentGame.GwentBoard.playCard(0, id)">Play Card</button>
-            </div>
-            <hr />
-            <h3>Close</h3>
-            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.CloseCombat.Cards'>
-                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
-            </div>
-            <h3>Ranged</h3>
-            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.RangedCombat.Cards'>
-                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
-            </div>
-            <h3>Siege</h3>
-            <div ng-repeat='(i, card) in GwentGame.GwentBoard.Players[0].Board.SiegeCombat.Cards'>
-                {{card.name}} - {{card.row}} - {{card.base_power}} :: {{card.display_power}}
             </div>
         </div>
 

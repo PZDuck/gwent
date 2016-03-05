@@ -4,23 +4,17 @@ function shuffle(inputArr) {
     });
 }
 
-function GwentCard(type, name, row, base_power, hero) {
+function GwentCard(type, name, row, base_power, hero, image) {
     this.type = type;
     this.name = name;
     this.row = row;
     this.base_power = base_power;
     this.display_power = base_power;
     this.hero = hero;
-    this.display_row = function() {
-        switch(this.row) {
-            case 'CloseCombat':
-                return 'C';
-            case 'RangedCombat':
-                return 'R';
-            case 'SiegeCombat':
-                return 'S';
-        }
-    }
+    this.image = image;
+
+    // top: -23, -442, -861
+    // left: -18, -240, -463, -685
 }
 
 function GwentGame(player1, player2) {
@@ -101,25 +95,25 @@ function GwentPlayer(deck) {
 }
 
 var all_cards = [
-    new GwentCard('Unit','TestUnitA','CloseCombat',3,false),
-    new GwentCard('Unit','TestUnitB','CloseCombat',6,false),
-    new GwentCard('Unit','TestUnitC','CloseCombat',1,false),
-    new GwentCard('Unit','TestUnitD','RangedCombat',2,false),
-    new GwentCard('Unit','TestUnitE','RangedCombat',4,false),
-    new GwentCard('Unit','TestUnitF','RangedCombat',5,false),
-    new GwentCard('Unit','TestUnitG','SiegeCombat',7,false),
-    new GwentCard('Unit','TestUnitH','SiegeCombat',8,false),
-    new GwentCard('Unit','TestUnitI','SiegeCombat',6,false),
-    new GwentCard('Unit','TestUnitJ','CloseCombat',15,true),
-    new GwentCard('Unit','TestUnitK','CloseCombat',10,true),
-    new GwentCard('Unit','TestUnitL','RangedCombat',7,true),
-    new GwentCard('Unit','TestUnitM','RangedCombat',10,true),
-    new GwentCard('Unit','TestUnitN','SiegeCombat',10,true),
-    new GwentCard('Unit','TestUnitO','SiegeCombat',10,true),
-    new GwentCard('Weather', 'Biting Frost', 'CloseCombat', 0, false),
-    new GwentCard('Weather', 'Impenetrable Fog', 'RangedCombat', 0, false),
-    new GwentCard('Weather', 'Torrential Rain', 'SiegeCombat', 0, false),
-    new GwentCard('Weather', 'Clear Day', 'Clear', 0, false)
+    new GwentCard('Unit','Villentretenmerth','CloseCombat',7,false,{card_map:'1',row:2,column:4}),
+    new GwentCard('Unit','Vesemir','CloseCombat',6,false,{card_map:'1',row:3,column:1}),
+    new GwentCard('Unit','Zoltan Chivray','CloseCombat',5,false,{card_map:'1',row:3,column:2}),
+    new GwentCard('Unit','Dandelion','CloseCombat',2,false,{card_map:'1',row:3,column:3}),
+    new GwentCard('Unit','Earth Elemental','SiegeCombat',6,false,{card_map:'1',row:3,column:4}),
+    new GwentCard('Unit','Fiend','CloseCombat',6,false,{card_map:'2',row:1,column:1}),
+    new GwentCard('Unit','Fire Elemental','SiegeCombat',6,false,{card_map:'2',row:1,column:2}),
+    new GwentCard('Unit','Arachas Behemoth','SiegeCombat',6,false,{card_map:'2',row:1,column:3}),
+    new GwentCard('Unit','TestUnitI','SiegeCombat',6,false,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitJ','CloseCombat',15,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitK','CloseCombat',10,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitL','RangedCombat',7,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitM','RangedCombat',10,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitN','SiegeCombat',10,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Unit','TestUnitO','SiegeCombat',10,true,{card_map:'1',row:1,column:1}),
+    new GwentCard('Weather','Biting Frost','CloseCombat',0,false,{card_map:'1',row:1,column:4}),
+    new GwentCard('Weather','Impenetrable Fog','RangedCombat',0,false,{card_map:'1',row:2,column:1}),
+    new GwentCard('Weather','Torrential Rain','SiegeCombat',0,false,{card_map:'1',row:2,column:2}),
+    new GwentCard('Weather','Clear Weather','Clear',0,false,{card_map:'1',row:2,column:3})
 ];
 
 var myApp = angular.module("myApp", []);
@@ -131,10 +125,9 @@ myApp.controller('MyCtrl', function($scope, $filter) {
     $scope.GwentGame = new GwentGame(Player1, Player2);
     $scope.GwentGame.startGame();
 
-    $scope.applyWeather = function(weather_row) {
-        var weather_card = new GwentCard('Weather', 'WeatherCard', weather_row, 0, false);
-        $scope.GwentGame.applyCard('Player1', weather_card);
-    }
+    $scope.isWeatherActive = function(weather_row) {
+        return ($filter('filter')($scope.GwentGame.GwentBoard.Weather, function(x) {return x.row == weather_row; })).length > 0;
+    };
 });
 
 
