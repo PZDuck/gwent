@@ -30,7 +30,7 @@ function GwentBoard(player1, player2) {
     this.Weather = [];
 
     this.drawHands = function() {
-        angular.forEach(this.Players, function(player) { player.drawHand(); });
+        this.Players.forEach(function(player) { player.drawHand(); });
     };
     this.playCard = function(player_id, hand_id) {
         var gwent_card = this.Players[player_id].takeCardFromHand(hand_id);
@@ -44,7 +44,7 @@ function GwentBoard(player1, player2) {
             this.Players[player_id].playCard(gwent_card);
         }
         var self = this;
-        angular.forEach(this.Players, function(player) { player.updateScore(self.Weather); });
+        this.Players.forEach(function(player) { player.updateScore(self.Weather); });
     };
 }
 
@@ -76,15 +76,15 @@ function GwentPlayer(deck) {
     this.updateScore = function(active_weather_cards) {
         var self = this;
         this.Score.CloseCombat = 0;
-        angular.forEach(this.Board.CloseCombat.Cards, function(card) { self.Score.CloseCombat += calculateCardPower(card, active_weather_cards); });
+        this.Board.CloseCombat.Cards.forEach(function(card) { self.Score.CloseCombat += calculateCardPower(card, active_weather_cards); });
         this.Score.RangedCombat = 0;
-        angular.forEach(this.Board.RangedCombat.Cards, function(card) { self.Score.RangedCombat += calculateCardPower(card, active_weather_cards); });
+        this.Board.RangedCombat.Cards.forEach(function(card) { self.Score.RangedCombat += calculateCardPower(card, active_weather_cards); });
         this.Score.SiegeCombat = 0;
-        angular.forEach(this.Board.SiegeCombat.Cards, function(card) { self.Score.SiegeCombat += calculateCardPower(card, active_weather_cards); });
+        this.Board.SiegeCombat.Cards.forEach(function(card) { self.Score.SiegeCombat += calculateCardPower(card, active_weather_cards); });
     };
     function calculateCardPower(gwent_card, active_weather_cards) {
         var power = gwent_card.base_power;
-        angular.forEach(active_weather_cards, function(weather_card) {
+        active_weather_cards.forEach(function(weather_card) {
             if(weather_card.row == gwent_card.row) {
                 power = 1;
             }
@@ -118,7 +118,7 @@ var all_cards = [
 
 var myApp = angular.module("myApp", []);
 
-myApp.controller('MyCtrl', function($scope, $filter) {
+myApp.controller('MyCtrl',['$scope', '$filter', function($scope, $filter) {
     $scope.all_cards = all_cards;
     var Player1 = new GwentPlayer(all_cards);
     var Player2 = new GwentPlayer(all_cards);
@@ -128,7 +128,7 @@ myApp.controller('MyCtrl', function($scope, $filter) {
     $scope.isWeatherActive = function(weather_row) {
         return ($filter('filter')($scope.GwentGame.GwentBoard.Weather, function(x) {return x.row == weather_row; })).length > 0;
     };
-});
+}]);
 
 
 
