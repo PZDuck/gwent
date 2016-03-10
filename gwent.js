@@ -118,9 +118,22 @@ var all_cards = [
 
 var myApp = angular.module("myApp", []);
 
-myApp.controller('MyCtrl',['$scope', '$filter', function($scope, $filter) {
+myApp.controller('MyCtrl',['$scope', '$filter', '$http', function($scope, $filter, $http) {
+    $scope.neutral_cards = [];
+    $scope.monster_cards = [];
+    $http.get('decks/neutral.json').success(function (data){
+        data.cards.forEach(function(json_card) {
+            $scope.neutral_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+        });
+    });
+    $http.get('decks/monster.json').success(function (data){
+        data.cards.forEach(function(json_card) {
+            $scope.monster_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+        });
+    });
+
     $scope.all_cards = all_cards;
-    var Player1 = new GwentPlayer(all_cards);
+    var Player1 = new GwentPlayer($scope.neutral_cards.concat($scope.monster_cards));
     var Player2 = new GwentPlayer(all_cards);
     $scope.GwentGame = new GwentGame(Player1, Player2);
     $scope.GwentGame.startGame();

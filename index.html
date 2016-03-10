@@ -41,21 +41,21 @@
             <hr /><hr />
             <div class="Player Player2">
                 <div class="TheBoard">
-                    <div class="Row CloseRow">
+                    <div class="Row CloseRow" ng-class="{activeWeather: isWeatherActive('CloseCombat')}">
                         <div class="Horn">C: {{GwentGame.GwentBoard.Players[1].Score.CloseCombat}}</div>
                         <div class="Cards">
                             <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.CloseCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
-                    <div class="Row RangedRow">
+                    <div class="Row RangedRow" ng-class="{activeWeather: isWeatherActive('RangedCombat')}">
                         <div class="Horn">R: {{GwentGame.GwentBoard.Players[1].Score.RangedCombat}}</div>
                         <div class="Cards">
                             <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.RangedCombat.Cards' ng-include="'gwent_card.html'"></div>
                         </div>
                     </div>
                     <hr />
-                    <div class="Row SiegeRow">
+                    <div class="Row SiegeRow" ng-class="{activeWeather: isWeatherActive('SiegeCombat')}">
                         <div class="Horn">S: {{GwentGame.GwentBoard.Players[1].Score.SiegeCombat}}</div>
                         <div class="Cards">
                             <div class="GwentCardWrapper" ng-repeat='(id, card) in GwentGame.GwentBoard.Players[1].Board.SiegeCombat.Cards' ng-include="'gwent_card.html'"></div>
