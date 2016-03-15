@@ -52,7 +52,10 @@ function GwentPlayer(deck) {
     this.Deck = deck;
     this.Hand = [];
     this.Discard = [];
-    this.Board = {CloseCombat: {CommandHorn: false, Cards: []}, RangedCombat: {CommandHorn: false, Cards: []}, SiegeCombat: {CommandHorn: false, Cards: []}};
+    this.Board = {
+        CloseCombat: {CommandHorn: {Active: false, Card: null}, Cards: []},
+        RangedCombat: {CommandHorn: {Active: false, Card: null}, Cards: []},
+        SiegeCombat: {CommandHorn: {Active: false, Card: null}, Cards: []}};
     this.Score = {CloseCombat: 0, RangedCombat: 0, SiegeCombat: 0,
         Total: function() {
             return this.CloseCombat + this.RangedCombat + this.SiegeCombat;
@@ -71,25 +74,43 @@ function GwentPlayer(deck) {
         return gwent_card;
     };
     this.playCard = function(gwent_card) {
-        this.Board[gwent_card.row].Cards.push(gwent_card);
+        if(gwent_card.type == 'Horn') {
+            this.Board[gwent_card.row].CommandHorn.Active = true;
+            this.Board[gwent_card.row].CommandHorn.Card = gwent_card;
+        } else {
+            this.Board[gwent_card.row].Cards.push(gwent_card);
+        }
+        console.log(this.Board);
     };
     this.updateScore = function(active_weather_cards) {
         var self = this;
-        this.Score.CloseCombat = 0;
-        this.Board.CloseCombat.Cards.forEach(function(card) { self.Score.CloseCombat += calculateCardPower(card, active_weather_cards); });
-        this.Score.RangedCombat = 0;
-        this.Board.RangedCombat.Cards.forEach(function(card) { self.Score.RangedCombat += calculateCardPower(card, active_weather_cards); });
-        this.Score.SiegeCombat = 0;
-        this.Board.SiegeCombat.Cards.forEach(function(card) { self.Score.SiegeCombat += calculateCardPower(card, active_weather_cards); });
+        this.Score.CloseCombat = calculateRowScore(this.Score.CloseCombat, this.Board.CloseCombat, active_weather_cards);
+        this.Score.RangedCombat = calculateRowScore(this.Score.RangedCombat, this.Board.RangedCombat, active_weather_cards);
+        this.Score.SiegeCombat = calculateRowScore(this.Score.SiegeCombat, this.Board.SiegeCombat, active_weather_cards);
     };
-    function calculateCardPower(gwent_card, active_weather_cards) {
-        var power = gwent_card.base_power;
-        active_weather_cards.forEach(function(weather_card) {
-            if(weather_card.row == gwent_card.row) {
-                power = 1;
-            }
+
+    function calculateRowScore(row_score, row_board, active_weather_cards) {
+        row_score = 0;
+        row_board.Cards.forEach(function(card) {
+            var horn = row_board.CommandHorn.Active;
+            var weather = calculateWeather(active_weather_cards, card);
+            row_score += p(card, horn, weather);
         });
-        gwent_card.display_power = power;
+        return row_score;
+    }
+    function calculateWeather(active_weather_cards, gwent_card) {
+        var w = false;
+        active_weather_cards.forEach(function(weather) {
+            console.log(weather.row, gwent_card.row);
+            if(weather.row == gwent_card.row) { w = true; }
+        });
+        return w;
+    }
+    function p(card, horn, weather) {
+        var power = card.base_power;
+        if(weather) { power = 1; }
+        if(horn) { power *= 2; }
+        card.display_power = power;
         return power;
     }
 }
@@ -121,25 +142,38 @@ var myApp = angular.module("myApp", []);
 myApp.controller('MyCtrl',['$scope', '$filter', '$http', function($scope, $filter, $http) {
     $scope.neutral_cards = [];
     $scope.monster_cards = [];
-    $http.get('decks/neutral.json').success(function (data){
-        data.cards.forEach(function(json_card) {
-            $scope.neutral_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
-        });
-    });
-    $http.get('decks/monster.json').success(function (data){
-        data.cards.forEach(function(json_card) {
-            $scope.monster_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
-        });
-    });
+    $scope.GwentGame = null;
 
-    $scope.all_cards = all_cards;
-    var Player1 = new GwentPlayer($scope.neutral_cards.concat($scope.monster_cards));
-    var Player2 = new GwentPlayer(all_cards);
-    $scope.GwentGame = new GwentGame(Player1, Player2);
-    $scope.GwentGame.startGame();
+    $scope.loadDecks = function() {
+        $http.get('decks/neutral.json').success(function (data){
+            data.cards.forEach(function(json_card) {
+                $scope.neutral_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+            });
+        });
+        $http.get('decks/monster.json').success(function (data){
+            data.cards.forEach(function(json_card) {
+                //$scope.monster_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+            });
+        });
+    };
+
+    $scope.startGame = function() {
+        var Player1 = new GwentPlayer($scope.neutral_cards.concat($scope.monster_cards));
+        var Player2 = new GwentPlayer(all_cards);
+        $scope.GwentGame = new GwentGame(Player1, Player2);
+        $scope.Player1 = $scope.GwentGame.GwentBoard.Players[0];
+        $scope.Player2 = $scope.GwentGame.GwentBoard.Players[1];
+        $scope.GwentGame.startGame();
+    };
 
     $scope.isWeatherActive = function(weather_row) {
-        return ($filter('filter')($scope.GwentGame.GwentBoard.Weather, function(x) {return x.row == weather_row; })).length > 0;
+        if($scope.GwentGame) {
+            return ($filter('filter')($scope.GwentGame.GwentBoard.Weather, function (x) {
+                    return x.row == weather_row;
+                })).length > 0;
+        } else {
+            return false;
+        }
     };
 }]);
 
