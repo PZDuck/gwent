@@ -1,5 +1,5 @@
 {
-  "deck_title": "Neutral",
+  "deck_title": "Monsters",
   "cards": [
     {"type": "Unit", "name": "Earth Elemental",   "row": "SiegeCombat",   "power": 6, "hero": false, "image": {"card_map":1,"row":3,"column":4}},
 

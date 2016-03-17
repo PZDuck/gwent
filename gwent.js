@@ -28,7 +28,26 @@ function GwentGame(player1, player2) {
 function GwentBoard(player1, player2) {
     this.Players = [player1, player2];
     this.Weather = [];
-
+    this.CurrentRound = 1;
+    this.RoundScore = {
+        1: {Player1: 0, Player2: 0},
+        2: {Player1: 0, Player2: 0},
+        3: {Player1: 0, Player2: 0},
+        Player1Wins: 0,
+        Player2Wins: 0
+    };
+    this.endRound = function() {
+        this.RoundScore[this.CurrentRound].Player1 = this.Players[0].Score.Total();
+        this.RoundScore[this.CurrentRound].Player2 = this.Players[1].Score.Total();
+        if(this.Players[0].Score.Total() > this.Players[1].Score.Total()) {
+            this.RoundScore.Player1Wins++;
+        } else {
+            this.RoundScore.Player2Wins++;
+        }
+        this.Weather = [];
+        this.Players.forEach(function(player) { player.discardBoard(); });
+        this.CurrentRound++;
+    };
     this.drawHands = function() {
         this.Players.forEach(function(player) { player.drawHand(); });
     };
@@ -80,15 +99,26 @@ function GwentPlayer(deck) {
         } else {
             this.Board[gwent_card.row].Cards.push(gwent_card);
         }
-        console.log(this.Board);
     };
     this.updateScore = function(active_weather_cards) {
-        var self = this;
         this.Score.CloseCombat = calculateRowScore(this.Score.CloseCombat, this.Board.CloseCombat, active_weather_cards);
         this.Score.RangedCombat = calculateRowScore(this.Score.RangedCombat, this.Board.RangedCombat, active_weather_cards);
         this.Score.SiegeCombat = calculateRowScore(this.Score.SiegeCombat, this.Board.SiegeCombat, active_weather_cards);
     };
+    this.discardBoard = function() {
+        this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
+        this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
+        this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
 
+        this.updateScore([]);
+    };
+
+    function clearBoardRow(discard_pile, row_board) {
+        discard_pile = discard_pile.concat(row_board.Cards);
+        row_board.Cards = [];
+        row_board.CommandHorn = false;
+        return discard_pile;
+    }
     function calculateRowScore(row_score, row_board, active_weather_cards) {
         row_score = 0;
         row_board.Cards.forEach(function(card) {
@@ -101,18 +131,22 @@ function GwentPlayer(deck) {
     function calculateWeather(active_weather_cards, gwent_card) {
         var w = false;
         active_weather_cards.forEach(function(weather) {
-            console.log(weather.row, gwent_card.row);
             if(weather.row == gwent_card.row) { w = true; }
         });
         return w;
     }
     function p(card, horn, weather) {
         var power = card.base_power;
+        if(card.hero) { return power; }
         if(weather) { power = 1; }
         if(horn) { power *= 2; }
         card.display_power = power;
         return power;
     }
+}
+
+function makeCardFromJSON(json_card) {
+    return new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image);
 }
 
 var all_cards = [
@@ -147,12 +181,12 @@ myApp.controller('MyCtrl',['$scope', '$filter', '$http', function($scope, $filte
     $scope.loadDecks = function() {
         $http.get('decks/neutral.json').success(function (data){
             data.cards.forEach(function(json_card) {
-                $scope.neutral_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+                $scope.neutral_cards.push(makeCardFromJSON(json_card));
             });
         });
         $http.get('decks/monster.json').success(function (data){
             data.cards.forEach(function(json_card) {
-                //$scope.monster_cards.push(new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image));
+                //$scope.monster_cards.push(makeCardFromJSON(json_card));
             });
         });
     };
@@ -164,6 +198,14 @@ myApp.controller('MyCtrl',['$scope', '$filter', '$http', function($scope, $filte
         $scope.Player1 = $scope.GwentGame.GwentBoard.Players[0];
         $scope.Player2 = $scope.GwentGame.GwentBoard.Players[1];
         $scope.GwentGame.startGame();
+    };
+
+    $scope.endCurrentRound = function() {
+        $scope.GwentGame.GwentBoard.endRound();
+    };
+
+    $scope.consolePlayers = function() {
+        console.log($scope.GwentGame.GwentBoard);
     };
 
     $scope.isWeatherActive = function(weather_row) {
