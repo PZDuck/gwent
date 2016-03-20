@@ -1,0 +1,22 @@
+{
+  "deck_title": "Neutral",
+  "cards": [
+    {"type": "Decoy",   "name": "Decoy",                        "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":1}},
+    {"type": "Horn",    "name": "Commander's Horn",             "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":2}},
+    {"type": "Scorch",  "name": "Scorch",                       "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":3}},
+    {"type": "Weather", "name": "Biting Frost",                 "row": "CloseCombat",   "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":4}},
+    {"type": "Weather", "name": "Impenetrable Fog",             "row": "RangedCombat",  "power": null,  "hero": false, "image": {"card_map":1,"row":2,"column":1}},
+    {"type": "Weather", "name": "Torrential Rain",              "row": "SiegeCombat",   "power": null,  "hero": false, "image": {"card_map":1,"row":2,"column":2}},
+    {"type": "Weather", "name": "Clear Weather",                "row": "Clear",         "power": null,  "hero": false, "image": {"card_map":1,"row":2,"column":3}},
+    {"type": "Unit",    "name": "Villentretenmerth",            "row": "CloseCombat",   "power": 7,     "hero": false, "image": {"card_map":1,"row":2,"column":4}},
+    {"type": "Unit",    "name": "Vesemir",                      "row": "CloseCombat",   "power": 6,     "hero": false, "image": {"card_map":1,"row":3,"column":1}},
+    {"type": "Unit",    "name": "Zoltan Chivay",                "row": "CloseCombat",   "power": 5,     "hero": false, "image": {"card_map":1,"row":3,"column":2}},
+    {"type": "Unit",    "name": "Dandelion",                    "row": "CloseCombat",   "power": 2,     "hero": false, "image": {"card_map":1,"row":3,"column":3}},
+
+    {"type": "Unit",    "name": "Geralt of Rivia",              "row": "CloseCombat",   "power": 15,    "hero": true, "image": {"card_map":12,"row":2,"column":2}},
+    {"type": "Unit",    "name": "Cirilla Fiona Elen Riannon",   "row": "CloseCombat",   "power": 15,    "hero": true, "image": {"card_map":12,"row":2,"column":3}},
+    {"type": "Unit",    "name": "Yennefer of Vengerberg",       "row": "RangedCombat",  "power": 7,     "hero": true, "image": {"card_map":12,"row":2,"column":4}},
+    {"type": "Unit",    "name": "Triss Merigold",               "row": "CloseCombat",   "power": 7,     "hero": true, "image": {"card_map":12,"row":3,"column":1}},
+    {"type": "Unit",    "name": "Avallac'h",                    "row": "CloseCombat",   "power": 0,     "hero": true, "image": {"card_map":12,"row":3,"column":2}}
+  ]
+}

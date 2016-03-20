@@ -1,0 +1,43 @@
+{
+  "deck_title": "Monsters",
+  "cards": [
+    {"type": "Unit", "name": "Earth Elemental",   "row": "SiegeCombat",   "power": 6, "hero": false, "image": {"card_map":1,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Fiend",             "row": "CloseCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":1,"column":1}},
+    {"type": "Unit", "name": "Fire Elemental",    "row": "SiegeCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":1,"column":2}},
+    {"type": "Unit", "name": "Arachas Behemoth",  "row": "SiegeCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":1,"column":3}},
+    {"type": "Unit", "name": "Crone: Brewess",    "row": "CloseCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":1,"column":4}},
+    {"type": "Unit", "name": "Crone: Weavess",    "row": "CloseCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":2,"column":1}},
+    {"type": "Unit", "name": "Crone: Whispess",   "row": "CloseCombat",   "power": 6, "hero": false, "image": {"card_map":2,"row":2,"column":2}},
+    {"type": "Unit", "name": "Forktail",          "row": "CloseCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":2,"column":3}},
+    {"type": "Unit", "name": "Plague Maiden",     "row": "CloseCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":2,"column":4}},
+    {"type": "Unit", "name": "Griffin",           "row": "CloseCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":3,"column":1}},
+    {"type": "Unit", "name": "Werewolf",          "row": "CloseCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":3,"column":2}},
+    {"type": "Unit", "name": "Frightener",        "row": "CloseCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":3,"column":3}},
+    {"type": "Unit", "name": "Ice Giant",         "row": "SiegeCombat",   "power": 5, "hero": false, "image": {"card_map":2,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Grave Hag",         "row": "RangedCombat",  "power": 5, "hero": false, "image": {"card_map":3,"row":1,"column":1}},
+    {"type": "Unit", "name": "Botchling",         "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":1,"column":2}},
+    {"type": "Unit", "name": "Arachas",           "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":1,"column":3}},
+    {"type": "Unit", "name": "Arachas",           "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":1,"column":4}},
+    {"type": "Unit", "name": "Arachas",           "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":2,"column":1}},
+    {"type": "Unit", "name": "Vampire: Ekimmara", "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":2,"column":2}},
+    {"type": "Unit", "name": "Vampire: Fleder",   "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":2,"column":3}},
+    {"type": "Unit", "name": "Vampire: Garkain",  "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":2,"column":4}},
+    {"type": "Unit", "name": "Vampire: Bruxa",    "row": "CloseCombat",   "power": 4, "hero": false, "image": {"card_map":3,"row":3,"column":1}},
+    {"type": "Unit", "name": "Endrega",           "row": "RangedCombat",  "power": 2, "hero": false, "image": {"card_map":3,"row":3,"column":2}},
+    {"type": "Unit", "name": "Harpy",             "row": ["CloseCombat", "RangedCombat"],   "power": 2, "hero": false, "image": {"card_map":3,"row":3,"column":3}},
+    {"type": "Unit", "name": "Cockatrice",        "row": "RangedCombat",  "power": 2, "hero": false, "image": {"card_map":3,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Gargoyle",          "row": "RangedCombat",  "power": 2, "hero": false, "image": {"card_map":4,"row":1,"column":1}},
+    {"type": "Unit", "name": "Celaeno Harpy",     "row": ["CloseCombat", "RangedCombat"],   "power": 2, "hero": false, "image": {"card_map":4,"row":1,"column":2}},
+    {"type": "Unit", "name": "Foglet",            "row": "CloseCombat",   "power": 2, "hero": false, "image": {"card_map":4,"row":1,"column":3}},
+    {"type": "Unit", "name": "Wyvern",            "row": "RangedCombat",  "power": 2, "hero": false, "image": {"card_map":4,"row":1,"column":4}},
+    {"type": "Unit", "name": "Nekker",            "row": "CloseCombat",   "power": 2, "hero": false, "image": {"card_map":4,"row":2,"column":1}},
+    {"type": "Unit", "name": "Nekker",            "row": "CloseCombat",   "power": 2, "hero": false, "image": {"card_map":4,"row":2,"column":2}},
+    {"type": "Unit", "name": "Nekker",            "row": "CloseCombat",   "power": 2, "hero": false, "image": {"card_map":4,"row":2,"column":3}},
+    {"type": "Unit", "name": "Ghoul",             "row": "CloseCombat",   "power": 1, "hero": false, "image": {"card_map":4,"row":2,"column":4}},
+    {"type": "Unit", "name": "Ghoul",             "row": "CloseCombat",   "power": 1, "hero": false, "image": {"card_map":4,"row":3,"column":1}},
+    {"type": "Unit", "name": "Ghoul",             "row": "CloseCombat",   "power": 1, "hero": false, "image": {"card_map":4,"row":3,"column":2}}
+  ]
+}

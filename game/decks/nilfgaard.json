@@ -1,0 +1,36 @@
+{
+  "deck_title": "Nilfgaardian Empire",
+  "cards": [
+    {"type": "Unit", "name": "Black Infantry Archer",           "row": "RangedCombat",  "power": 10,  "hero": false, "image": {"card_map":4,"row":3,"column":3}},
+    {"type": "Unit", "name": "Black Infantry Archer",           "row": "RangedCombat",  "power": 10,  "hero": false, "image": {"card_map":4,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Heavy Zerrikanian Fire Scorpion", "row": "SiegeCombat",   "power": 10,  "hero": false, "image": {"card_map":5,"row":1,"column":1}},
+    {"type": "Unit", "name": "Stefan Skellen",                  "row": "CloseCombat",   "power": 9,   "hero": false, "image": {"card_map":5,"row":1,"column":2}},
+    {"type": "Unit", "name": "Shilard Fitz-Desterfen",          "row": "CloseCombat",   "power": 7,   "hero": false, "image": {"card_map":5,"row":1,"column":3}},
+    {"type": "Unit", "name": "Assire var Anahid",               "row": "RangedCombat",  "power": 6,   "hero": false, "image": {"card_map":5,"row":1,"column":4}},
+    {"type": "Unit", "name": "Fringilla Vigo",                  "row": "RangedCombat",  "power": 6,   "hero": false, "image": {"card_map":5,"row":2,"column":1}},
+    {"type": "Unit", "name": "Cahir Mawr Dyffryn aep Caellach", "row": "CloseCombat",   "power": 6,   "hero": false, "image": {"card_map":5,"row":2,"column":2}},
+    {"type": "Unit", "name": "Siege Engineer",                  "row": "SiegeCombat",   "power": 6,   "hero": false, "image": {"card_map":5,"row":2,"column":3}},
+    {"type": "Unit", "name": "Renuald aep Matsen",              "row": "RangedCombat",  "power": 5,   "hero": false, "image": {"card_map":5,"row":2,"column":4}},
+    {"type": "Unit", "name": "Zerrikanian Fire Scorpion",       "row": "SiegeCombat",   "power": 5,   "hero": false, "image": {"card_map":5,"row":3,"column":1}},
+    {"type": "Unit", "name": "Young Emissary",                  "row": "CloseCombat",   "power": 5,   "hero": false, "image": {"card_map":5,"row":3,"column":2}},
+    {"type": "Unit", "name": "Young Emissary",                  "row": "CloseCombat",   "power": 5,   "hero": false, "image": {"card_map":5,"row":3,"column":3}},
+    {"type": "Unit", "name": "Cynthia",                         "row": "RangedCombat",  "power": 4,   "hero": false, "image": {"card_map":5,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Rainfarn",                        "row": "CloseCombat",   "power": 4,   "hero": false, "image": {"card_map":6,"row":1,"column":1}},
+    {"type": "Unit", "name": "Vanhemar",                        "row": "RangedCombat",  "power": 4,   "hero": false, "image": {"card_map":6,"row":1,"column":2}},
+    {"type": "Unit", "name": "Vattier de Rideaux",              "row": "CloseCombat",   "power": 4,   "hero": false, "image": {"card_map":6,"row":1,"column":3}},
+    {"type": "Unit", "name": "Mortisen",                        "row": "CloseCombat",   "power": 3,   "hero": false, "image": {"card_map":6,"row":1,"column":4}},
+    {"type": "Unit", "name": "Rotten Mangonel",                 "row": "SiegeCombat",   "power": 3,   "hero": false, "image": {"card_map":6,"row":2,"column":1}},
+    {"type": "Unit", "name": "Puttkammer",                      "row": "RangedCombat",  "power": 3,   "hero": false, "image": {"card_map":6,"row":2,"column":2}},
+    {"type": "Unit", "name": "Impera Brigade Guard",            "row": "CloseCombat",   "power": 3,   "hero": false, "image": {"card_map":6,"row":2,"column":3}},
+    {"type": "Unit", "name": "Albrich",                         "row": "RangedCombat",  "power": 2,   "hero": false, "image": {"card_map":6,"row":2,"column":4}},
+    {"type": "Unit", "name": "Sweers",                          "row": "RangedCombat",  "power": 2,   "hero": false, "image": {"card_map":6,"row":3,"column":1}},
+    {"type": "Unit", "name": "Vreemde",                         "row": "CloseCombat",   "power": 2,   "hero": false, "image": {"card_map":6,"row":3,"column":2}},
+    {"type": "Unit", "name": "Nausicaa Cavalry Rider",          "row": "CloseCombat",   "power": 2,   "hero": false, "image": {"card_map":6,"row":3,"column":3}},
+    {"type": "Unit", "name": "Etolian Auxiliary Archers",       "row": "RangedCombat",  "power": 1,   "hero": false, "image": {"card_map":6,"row":3,"column":4}},
+
+    {"type": "Unit", "name": "Etolian Auxiliary Archers",       "row": "RangedCombat",  "power": 1,   "hero": false, "image": {"card_map":7,"row":1,"column":1}},
+    {"type": "Unit", "name": "Siege Technician",                "row": "SiegeCombat",   "power": 0,   "hero": false, "image": {"card_map":7,"row":1,"column":2}}
+  ]
+}

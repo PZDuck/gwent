@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gwent</title>
+        <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script type="application/javascript" src="gwent.js"></script>
+        <link type="text/css" rel="stylesheet" href="gwent.css" />
+    </head>
+    <body>
+        <div ng-app='myApp' ng-controller="MyCtrl">
+            <div class="controls">
+                <button ng-click="loadDecks()">Load Decks</button>
+                <button ng-click="startGame()">Start Game</button>
+                <button ng-click="endCurrentRound()">End Round</button>
+                <button ng-click="consolePlayers()">Console</button>
+            </div>
+            <div class="Player Player1">
+                <h3>Player 1: {{Player1.Score.Total()}}</h3>
+                <div class="TheHand">
+                    <div class="GwentCardWrapper" ng-repeat='(id, card) in Player1.Hand' ng-init="player=0" ng-include="'gwent_card_hand.html'"></div>
+                </div>
+                <hr />
+                <div class="TheBoard">
+                    <div class="Row SiegeRow" ng-class="{activeWeather: isWeatherActive('SiegeCombat')}">
+                        <div class="Horn">
+                            <div class="RowScore">{{Player1.Score.SiegeCombat}}</div>
+                            <div class="GwentCardWrapper" ng-show="Player1.Board.SiegeCombat.CommandHorn.Active">
+                                <div class="GwentCard Sheet{{Player1.Board.SiegeCombat.CommandHorn.Card.image.card_map}} Row{{Player1.Board.SiegeCombat.CommandHorn.Card.image.row}} Column{{Player1.Board.SiegeCombat.CommandHorn.Card.image.column}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player1.Board.SiegeCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Row RangedRow" ng-class="{activeWeather: isWeatherActive('RangedCombat')}">
+                        <div class="Horn">
+                            <div class="RowScore">{{Player1.Score.RangedCombat}}</div>
+                            <div class="GwentCardWrapper" ng-show="Player1.Board.RangedCombat.CommandHorn.Active">
+                                <div class="GwentCard Sheet{{Player1.Board.RangedCombat.CommandHorn.Card.image.card_map}} Row{{Player1.Board.RangedCombat.CommandHorn.Card.image.row}} Column{{Player1.Board.RangedCombat.CommandHorn.Card.image.column}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player1.Board.RangedCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Row CloseRow" ng-class="{activeWeather: isWeatherActive('CloseCombat')}">
+                        <div class="Horn">
+                            <div class="RowScore">{{Player1.Score.CloseCombat}}</div>
+                            <div class="GwentCardWrapper" ng-show="Player1.Board.CloseCombat.CommandHorn.Active">
+                                <div class="GwentCard Sheet{{Player1.Board.CloseCombat.CommandHorn.Card.image.card_map}} Row{{Player1.Board.CloseCombat.CommandHorn.Card.image.row}} Column{{Player1.Board.CloseCombat.CommandHorn.Card.image.column}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player1.Board.CloseCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr /><hr />
+            <div class="Player Player2">
+                <div class="TheBoard">
+                    <div class="Row CloseRow" ng-class="{activeWeather: isWeatherActive('CloseCombat')}">
+                        <div class="Horn">C: {{Player2.Score.CloseCombat}}</div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player2.Board.CloseCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Row RangedRow" ng-class="{activeWeather: isWeatherActive('RangedCombat')}">
+                        <div class="Horn">R: {{Player2.Score.RangedCombat}}</div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player2.Board.RangedCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Row SiegeRow" ng-class="{activeWeather: isWeatherActive('SiegeCombat')}">
+                        <div class="Horn">S: {{Player2.Score.SiegeCombat}}</div>
+                        <div class="Cards">
+                            <div class="GwentCardWrapper" ng-repeat='(id, card) in Player2.Board.SiegeCombat.Cards' ng-include="'gwent_card.html'"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h3>Player 2: {{Player2.Score.Total()}}</h3>
+                <div class="TheHand">
+                    <div class="GwentCardWrapper" ng-repeat='(id, card) in Player2.Hand' ng-init="player=1" ng-include="'gwent_card_hand.html'"></div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                Player1: {{Player1.Score.Total()}}<br />
+                C: {{Player1.Score.CloseCombat}}<br />
+                R: {{Player1.Score.RangedCombat}}<br />
+                S: {{Player1.Score.SiegeCombat}}<br />
+            </div>
+        </div>
+
+    </body>
+</html>
