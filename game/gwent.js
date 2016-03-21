@@ -68,6 +68,7 @@ function GwentBoard(player1, player2) {
 }
 
 function GwentPlayer(deck) {
+    this.hand_visible = false;
     this.Deck = deck;
     this.Hand = [];
     this.Discard = [];
@@ -81,6 +82,12 @@ function GwentPlayer(deck) {
         }
     };
     this.Leader;
+    this.isHandVisible = function() {
+        return this.hand_visible;
+    };
+    this.toggleHand = function() {
+        this.hand_visible = !this.hand_visible;
+    };
     this.drawHand = function() {
         var deck = shuffle(this.Deck);
         for(var i = 0; i < 10; i++) {
