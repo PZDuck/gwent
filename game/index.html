@@ -32,6 +32,10 @@
                 </div>
             </div>
             <div class="GwentBoard">
+                <div class="RowChoices" ng-show="GwentGame.GwentBoard.RowChoices">
+                    <div class="GwentCard Sheet{{GwentGame.GwentBoard.RowChoices.card.image.card_map}} Row{{GwentGame.GwentBoard.RowChoices.card.image.row}} Column{{GwentGame.GwentBoard.RowChoices.card.image.column}}"></div>
+                    <div class="RowChoiceOption {{option}}" ng-repeat='(id, option) in GwentGame.GwentBoard.RowChoices.card.row' ng-click="GwentGame.GwentBoard.ChooseRow(option)"></div>
+                </div>
                 <div class="Player Player1">
                     <div class="TheHand" ng-show="Player1.isHandVisible()">
                         <div class="GwentCardWrapper" ng-repeat='(id, card) in Player1.Hand' ng-init="player=0" ng-include="'gwent_card_hand.html'"></div>

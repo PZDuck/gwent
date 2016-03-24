@@ -33,6 +33,12 @@ body {
     min-height: calc(450px * 0.40);
     border-bottom: 2px solid blue;
 }
+.RowChoiceOption {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
 .Row.activeWeather.CloseRow {
     background: url('other_assets/frost.jpg') center/cover repeat;
 }
@@ -46,13 +52,13 @@ body {
     background-size: cover;
 }
 
-.CloseRow .Horn {
+.CloseRow .Horn, .RowChoiceOption.CloseCombat {
     background:  url('other_assets/close.png') center/25% no-repeat;
 }
-.RangedRow .Horn {
+.RangedRow .Horn, .RowChoiceOption.RangedCombat {
     background:  url('other_assets/ranged.png') center/25% no-repeat;
 }
-.SiegeRow .Horn {
+.SiegeRow .Horn, .RowChoiceOption.SiegeCombat {
     background:  url('other_assets/siege.png') center/25% no-repeat;
 }
 

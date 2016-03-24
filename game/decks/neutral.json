@@ -1,9 +1,9 @@
 {
   "deck_title": "Neutral",
   "cards": [
-    {"type": "Decoy",   "name": "Decoy",                        "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":1}},
-    {"type": "Horn",    "name": "Commander's Horn",             "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":2}},
-    {"type": "Scorch",  "name": "Scorch",                       "row": "Any",           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":3}},
+    {"type": "Decoy",   "name": "Decoy",                        "row": ["CloseCombat", "RangedCombat", "SiegeCombat"],           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":1}},
+    {"type": "Horn",    "name": "Commander's Horn",             "row": ["CloseCombat", "RangedCombat", "SiegeCombat"],           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":2}},
+    {"type": "Scorch",  "name": "Scorch",                       "row": ["CloseCombat", "RangedCombat", "SiegeCombat"],           "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":3}},
     {"type": "Weather", "name": "Biting Frost",                 "row": "CloseCombat",   "power": null,  "hero": false, "image": {"card_map":1,"row":1,"column":4}},
     {"type": "Weather", "name": "Impenetrable Fog",             "row": "RangedCombat",  "power": null,  "hero": false, "image": {"card_map":1,"row":2,"column":1}},
     {"type": "Weather", "name": "Torrential Rain",              "row": "SiegeCombat",   "power": null,  "hero": false, "image": {"card_map":1,"row":2,"column":2}},

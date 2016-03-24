@@ -12,9 +12,6 @@ function GwentCard(type, name, row, base_power, hero, image) {
     this.display_power = base_power;
     this.hero = hero;
     this.image = image;
-
-    // top: -23, -442, -861
-    // left: -18, -240, -463, -685
 }
 
 function GwentGame(player1, player2) {
@@ -28,6 +25,7 @@ function GwentGame(player1, player2) {
 function GwentBoard(player1, player2) {
     this.Players = [player1, player2];
     this.Weather = [];
+    this.RowChoices = null;
     this.CurrentRound = 1;
     this.RoundScore = {
         1: {Player1: 0, Player2: 0},
@@ -53,6 +51,20 @@ function GwentBoard(player1, player2) {
     };
     this.playCard = function(player_id, hand_id) {
         var gwent_card = this.Players[player_id].takeCardFromHand(hand_id);
+        if(gwent_card.row.constructor === Array) {
+            this.RowChoices = {player_id: player_id, card: gwent_card};
+        } else {
+            this.putCardOnBoard(player_id, gwent_card);
+        }
+    };
+    this.ChooseRow = function(card_row) {
+        var gwent_card = this.RowChoices.card;
+        var player_id = this.RowChoices.player_id;
+        this.RowChoices = null;
+        gwent_card.row = card_row;
+        this.putCardOnBoard(player_id, gwent_card);
+    };
+    this.putCardOnBoard = function(player_id, gwent_card) {
         if(gwent_card.type == 'Weather') {
             if(gwent_card.row == 'Clear') {
                 this.Weather = [];
@@ -156,51 +168,76 @@ function makeCardFromJSON(json_card) {
     return new GwentCard(json_card.type, json_card.name, json_card.row, json_card.power, json_card.hero, json_card.image);
 }
 
-var all_cards = [
-    new GwentCard('Unit','Villentretenmerth','CloseCombat',7,false,{card_map:'1',row:2,column:4}),
-    new GwentCard('Unit','Vesemir','CloseCombat',6,false,{card_map:'1',row:3,column:1}),
-    new GwentCard('Unit','Zoltan Chivray','CloseCombat',5,false,{card_map:'1',row:3,column:2}),
-    new GwentCard('Unit','Dandelion','CloseCombat',2,false,{card_map:'1',row:3,column:3}),
-    new GwentCard('Unit','Earth Elemental','SiegeCombat',6,false,{card_map:'1',row:3,column:4}),
-    new GwentCard('Unit','Fiend','CloseCombat',6,false,{card_map:'2',row:1,column:1}),
-    new GwentCard('Unit','Fire Elemental','SiegeCombat',6,false,{card_map:'2',row:1,column:2}),
-    new GwentCard('Unit','Arachas Behemoth','SiegeCombat',6,false,{card_map:'2',row:1,column:3}),
-    new GwentCard('Unit','TestUnitI','SiegeCombat',6,false,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitJ','CloseCombat',15,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitK','CloseCombat',10,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitL','RangedCombat',7,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitM','RangedCombat',10,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitN','SiegeCombat',10,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Unit','TestUnitO','SiegeCombat',10,true,{card_map:'1',row:1,column:1}),
-    new GwentCard('Weather','Biting Frost','CloseCombat',0,false,{card_map:'1',row:1,column:4}),
-    new GwentCard('Weather','Impenetrable Fog','RangedCombat',0,false,{card_map:'1',row:2,column:1}),
-    new GwentCard('Weather','Torrential Rain','SiegeCombat',0,false,{card_map:'1',row:2,column:2}),
-    new GwentCard('Weather','Clear Weather','Clear',0,false,{card_map:'1',row:2,column:3})
-];
-
 var myApp = angular.module("myApp", []);
 
 myApp.controller('MyCtrl',['$scope', '$filter', '$http', function($scope, $filter, $http) {
     $scope.neutral_cards = [];
     $scope.monster_cards = [];
+    $scope.nilfgaard_cards = [];
+    $scope.json_cards = [];
+    $scope.all_cards = [];
+    $scope.deck1 = [];
+    $scope.deck2 = [];
+    $scope.deck3 = [];
+    $scope.deck4 = [];
     $scope.GwentGame = null;
 
     $scope.loadDecks = function() {
         $http.get('decks/neutral.json').success(function (data){
             data.cards.forEach(function(json_card) {
                 $scope.neutral_cards.push(makeCardFromJSON(json_card));
+                $scope.json_cards.push(json_card);
             });
         });
         $http.get('decks/monster.json').success(function (data){
             data.cards.forEach(function(json_card) {
-                //$scope.monster_cards.push(makeCardFromJSON(json_card));
+                $scope.monster_cards.push(makeCardFromJSON(json_card));
+                $scope.json_cards.push(json_card);
             });
         });
+        $http.get('decks/nilfgaard.json').success(function (data){
+            data.cards.forEach(function(json_card) {
+                $scope.nilfgaard_cards.push(makeCardFromJSON(json_card));
+                $scope.json_cards.push(json_card);
+            });
+        });
+        //$scope.deck1 = $scope.neutral_cards.concat($scope.monster_cards);
+        //$scope.deck2 = $scope.neutral_cards.concat($scope.nilfgaard_cards);
+    };
+
+    $scope.mycards = ['Decoy','Scorch','Vesemir','Dandelion','Puttkammer','Sweers','Vanhemar','Cynthia','Torrential Rain',"Commander's Horn"];
+    $scope.hiscards = ['Decoy','Scorch','Vesemir','Dandelion','Puttkammer','Sweers','Vanhemar','Cynthia','Torrential Rain',"Commander's Horn"];
+
+    $scope.buildDeck = function(card_set) {
+        var gwent_deck = [];
+        var json_deck = $filter('filter')($scope.json_cards, function (x) {
+            return ($filter('filter')(card_set, function(y) {return y == x.name;}).length > 0);
+        });
+        json_deck.forEach(function(json_card) {
+            gwent_deck.push(makeCardFromJSON(json_card));
+        });
+        return gwent_deck;
     };
 
     $scope.startGame = function() {
-        var Player1 = new GwentPlayer($scope.neutral_cards.concat($scope.monster_cards));
-        var Player2 = new GwentPlayer(all_cards);
+        //$scope.json_cards.forEach(function(json_card) { $scope.all_cards.push(makeCardFromJSON(json_card)); });
+        //console.log($scope.json_cards);
+        //console.log($scope.all_cards);
+
+
+
+
+        $scope.deck3 = $scope.buildDeck($scope.mycards);
+        $scope.deck4 = $scope.buildDeck($scope.hiscards);
+
+        console.log($scope.deck3);
+        console.log($scope.deck4);
+
+        //$filter('filter')($scope.json_cards, function (x) { if($filter('filter')($scope.hiscards, function(y) {return y == x.name;})) { $scope.deck4.push(makeCardFromJSON(x)); } });
+        //$scope.deck4.push( $filter('filter')($scope.all_cards, function (x) { if($filter('filter')($scope.hiscards, function(y) {return y == x.name;})) { return x; } }) );
+
+        var Player1 = new GwentPlayer($scope.deck3);
+        var Player2 = new GwentPlayer($scope.deck4);
         $scope.GwentGame = new GwentGame(Player1, Player2);
         $scope.Player1 = $scope.GwentGame.GwentBoard.Players[0];
         $scope.Player2 = $scope.GwentGame.GwentBoard.Players[1];
