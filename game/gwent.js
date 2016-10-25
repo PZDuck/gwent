@@ -126,8 +126,8 @@ function GwentPlayer(deck) {
     };
     this.discardBoard = function() {
         this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
-        this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
-        this.Discard = clearBoardRow(this.Discard, this.Board.CloseCombat);
+        this.Discard = clearBoardRow(this.Discard, this.Board.RangedCombat);
+        this.Discard = clearBoardRow(this.Discard, this.Board.SiegeCombat);
 
         this.updateScore([]);
     };
